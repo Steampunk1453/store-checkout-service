@@ -8,7 +8,6 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,23 +23,18 @@ public class Basket {
 
     private String status;
 
-    @OneToMany(mappedBy = "pk.order")
+    @OneToMany(mappedBy = "pk.basket", cascade = CascadeType.ALL)
     @Valid
-    private List<BasketProduct> basketProducts = new ArrayList<>();
+    private List<BasketProduct> basketProducts;
 
     @Transient
-    public Double getTotalOrderPrice() {
+    public Double getTotalAmount() {
         double sum = 0D;
         List<BasketProduct> basketProducts = getBasketProducts();
-        for (BasketProduct op : basketProducts) {
-            sum += op.getTotalPrice();
+        for (BasketProduct bp : basketProducts) {
+            sum += bp.getTotalPrice();
         }
         return sum;
-    }
-
-    @Transient
-    public int getNumberOfProducts() {
-        return this.basketProducts.size();
     }
 
 }
