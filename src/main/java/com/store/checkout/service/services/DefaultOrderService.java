@@ -7,6 +7,7 @@ import com.store.checkout.service.repositories.BasketRepository;
 import com.store.checkout.service.repositories.domain.Basket;
 import com.store.checkout.service.repositories.domain.BasketProduct;
 import com.store.checkout.service.repositories.domain.OrderStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class DefaultOrderService implements OrderService {
 
     private final ProductService productService;
@@ -37,6 +39,7 @@ public class DefaultOrderService implements OrderService {
         Basket basket = new Basket();
         basket.setStatus(OrderStatus.PAID.name());
         basket = basketService.create(basket);
+        log.debug("Basket created");
 
         List<BasketProduct> basketProducts = new ArrayList<>();
         for (BasketDto dto : basketDto) {
@@ -45,6 +48,7 @@ public class DefaultOrderService implements OrderService {
         basket.setBasketProducts(basketProducts);
 
         basketService.update(basket);
+        log.debug("Basket updated");
         return basket;
     }
 
@@ -55,6 +59,7 @@ public class DefaultOrderService implements OrderService {
         addProducts(basket, basketProducts, basketDto);
         basket.setBasketProducts(basketProducts);
         basketService.update(basket);
+        log.debug("Basket updated");
         return basket;
     }
 
