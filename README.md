@@ -24,7 +24,7 @@ Back-End service checkout store with Java, Spring Boot, H2 and Swagger
   
   Service has not security because it is only accessible by the client
   
-  The idea is to deploy app with Docker and Kubernetes
+  Project will be deployed with Docker and Kubernetes
   
   To prevent the service from being accessible from outside only service client is going to put in Ingress configuration
   
