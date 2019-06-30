@@ -41,7 +41,6 @@ public class BasketServiceTest {
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));
         assertThat(result.getStatus(), is(basket.getStatus()));
         assertThat(result.getBasketProducts().get(0).getQuantity(), is(basket.getBasketProducts().get(0).getQuantity()));
-        assertThat(result.getId(), is(basket.getId()));
     }
 
     @Test
