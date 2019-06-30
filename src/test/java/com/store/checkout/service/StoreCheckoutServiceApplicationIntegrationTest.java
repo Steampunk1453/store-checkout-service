@@ -1,7 +1,6 @@
 package com.store.checkout.service;
 
 import com.store.checkout.service.controllers.BasketController;
-import com.store.checkout.service.controllers.ProductController;
 import com.store.checkout.service.dtos.BasketDto;
 import com.store.checkout.service.dtos.OrderRequest;
 import com.store.checkout.service.repositories.BasketRepository;
@@ -17,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -45,9 +42,6 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
     private int port;
 
     @Autowired
-    private ProductController productController;
-
-    @Autowired
     private BasketController basketController;
 
     @Mock
@@ -55,9 +49,6 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
 
     @Test
     public void contextLoads() {
-        Assertions
-                .assertThat(productController)
-                .isNotNull();
         Assertions
                 .assertThat(basketController)
                 .isNotNull();
@@ -77,18 +68,6 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
         assertThat(response, hasProperty("dateCreated", is(LocalDate.now())));
         assertThat(response, hasProperty("status", is("PAID")));
         assertThat(response.getBasketProducts(), hasItem(hasProperty("quantity", is(2))));
-    }
-
-    @Test
-    public void whenAddProductsApiCallReturnsResponse() {
-        final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/api/baskets", buildOrderRequest(), Basket.class);
-
-        Basket response = postResponse.getBody();
-
-        assertThat(response, hasProperty("id"));
-        assertThat(response, hasProperty("dateCreated"));
-        assertThat(response, hasProperty("status"));
-        assertThat(response, hasProperty("basketProducts"));
     }
 
     private OrderRequest buildOrderRequest() {
