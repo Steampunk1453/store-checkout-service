@@ -27,7 +27,7 @@ public class ProductController {
         Basket basket = orderService.saveProduct(basketDto);
         String uri = ServletUriComponentsBuilder
                 .fromCurrentServletMapping()
-                .path("/baskets")
+                .path("/products")
                 .buildAndExpand(basket.getId())
                 .toString();
         HttpHeaders headers = new HttpHeaders();
