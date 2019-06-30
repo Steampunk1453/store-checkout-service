@@ -12,9 +12,10 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "order")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "basket")
 public class BasketProductPK implements Serializable {
 
+    private static final long serialVersionUID = 476151177562655457L;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "basket_id")
