@@ -71,7 +71,6 @@ public class DefaultOrderService implements OrderService {
         }
     }
 
-
     private void addProducts(Basket basket, List<BasketProduct> basketProducts, BasketDto dto) {
         basketProducts.add(basketProductService.create(new BasketProduct(basket, productService.getProduct(dto
                 .getProduct()
