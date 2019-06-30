@@ -1,5 +1,6 @@
 package com.store.checkout.service.controllers;
 
+import com.store.checkout.service.dtos.BasketDto;
 import com.store.checkout.service.dtos.OrderRequest;
 import com.store.checkout.service.repositories.domain.Basket;
 import com.store.checkout.service.services.BasketService;
@@ -26,12 +27,12 @@ public class BasketController {
 
     @GetMapping(path = "/amounts/{basketId}")
     @ResponseStatus(HttpStatus.OK)
-    public @NotNull Double getAmount(@PathVariable("basketId") long basketId) {
+    public synchronized @NotNull Double getAmount(@PathVariable("basketId") long basketId) {
         return basketService.getTotalAmount(basketId);
     }
 
     @PostMapping
-    public ResponseEntity<Basket> create(@RequestBody OrderRequest orderRequest) {
+    public synchronized ResponseEntity<Basket> create(@RequestBody OrderRequest orderRequest) {
         Basket basket = orderService.saveBasket(orderRequest);
         String uri = ServletUriComponentsBuilder
                 .fromCurrentServletMapping()
@@ -44,9 +45,23 @@ public class BasketController {
         return new ResponseEntity<>(basket, headers, HttpStatus.CREATED);
     }
 
+    @PostMapping(path = "/products")
+    public synchronized ResponseEntity<Basket> add(@RequestBody BasketDto basketDto) {
+        Basket basket = orderService.saveProduct(basketDto);
+        String uri = ServletUriComponentsBuilder
+                .fromCurrentServletMapping()
+                .path("/products")
+                .buildAndExpand(basket.getId())
+                .toString();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", uri);
+
+        return new ResponseEntity<>(basket, headers, HttpStatus.CREATED);
+    }
+
     @DeleteMapping(value = "/{basketId}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("basketId") long basketId) {
+    public synchronized void delete(@PathVariable("basketId") long basketId) {
         basketService.delete(basketId);
     }
 

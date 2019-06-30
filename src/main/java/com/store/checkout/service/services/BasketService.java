@@ -12,7 +12,7 @@ public interface BasketService {
 
     Basket create(@NotNull(message = "Basket cannot be null") @Valid Basket basket);
     void update(@NotNull(message = "Basket cannot be null") @Valid Basket basket);
-    @NotNull Double getTotalAmount(long basketId);
+    Double getTotalAmount(long basketId);
     void delete(long basketId);
 
 }
