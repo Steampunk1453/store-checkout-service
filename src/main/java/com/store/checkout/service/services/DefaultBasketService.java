@@ -6,7 +6,6 @@ import com.store.checkout.service.repositories.domain.Basket;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Service
@@ -31,7 +30,7 @@ public class DefaultBasketService implements BasketService {
     }
 
     @Override
-    public @NotNull Double getTotalAmount(long basketId) {
+    public Double getTotalAmount(long basketId) {
         Basket basket = basketRepository
                 .findById(basketId)
                 .orElseThrow(() -> new ResourceNotFoundException("Basket not found"));
