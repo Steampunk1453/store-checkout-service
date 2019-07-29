@@ -33,7 +33,7 @@ public class DefaultBasketService implements BasketService {
     public Double getTotalAmount(long basketId) {
         Basket basket = basketRepository
                 .findById(basketId)
-                .orElseThrow(() -> new ResourceNotFoundException("Basket not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Basket not found with id " + basketId));
         return basket.getTotalAmount();
     }
 
@@ -41,7 +41,7 @@ public class DefaultBasketService implements BasketService {
     public void delete(long basketId) {
         basketRepository
                 .findById(basketId)
-                .orElseThrow(() -> new ResourceNotFoundException("Basket not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Basket not found with id " + basketId));
         basketRepository.deleteById(basketId);
     }
 }
