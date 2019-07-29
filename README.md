@@ -6,7 +6,12 @@ Back-End service checkout store with Java, Spring Boot, H2 and Swagger
 * For testing and view the code in the project I recommend using the IntelliJ IDE (free Community or Ultimate edition)
      
      https://www.jetbrains.com/idea/
+
+* How to run : 
      
+     Install maven
+     
+     In terminal execute: mvn spring-boot:run`  
 
 * For testing navigate to:
 

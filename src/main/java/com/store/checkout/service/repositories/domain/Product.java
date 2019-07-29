@@ -1,5 +1,6 @@
 package com.store.checkout.service.repositories.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +28,7 @@ public class Product {
     @Basic(optional = false)
     private String name;
 
+    @JsonIgnore
     private Double price;
 
 }
