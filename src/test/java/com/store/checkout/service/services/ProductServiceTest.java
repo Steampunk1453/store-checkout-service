@@ -38,7 +38,7 @@ public class ProductServiceTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void whenGetProductThrowException() {
+    public void whenGetProductThrowsResourceNotFoundException() {
         productService.getProduct(anyLong());
     }
 

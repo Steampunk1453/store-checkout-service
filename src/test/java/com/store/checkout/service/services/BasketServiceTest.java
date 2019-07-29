@@ -53,7 +53,7 @@ public class BasketServiceTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void whenGetTotalAmountThrowException() {
+    public void whenGetTotalAmountThrowsResourceNotFoundException() {
         basketService.getTotalAmount(1L);
 
         verify(basketRepository, times(1)).findById(anyLong());
