@@ -11,7 +11,7 @@ Back-End service checkout store with Java, Spring Boot, H2 and Swagger
      
      Install maven
      
-     In terminal execute: mvn spring-boot:run`  
+     In terminal execute: `mvn spring-boot:run`  
 
 * For testing navigate to:
 
