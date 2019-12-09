@@ -3,6 +3,8 @@ package com.store.checkout.service.repositories.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -11,7 +13,8 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Embeddable
-@Data
+@Getter
+@Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "basket")
 public class BasketProductPK implements Serializable {
 
