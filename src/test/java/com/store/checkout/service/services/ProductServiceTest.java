@@ -2,7 +2,7 @@ package com.store.checkout.service.services;
 
 import com.store.checkout.service.exceptions.ResourceNotFoundException;
 import com.store.checkout.service.repositories.ProductRepository;
-import com.store.checkout.service.repositories.domain.Product;
+import com.store.checkout.service.domain.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

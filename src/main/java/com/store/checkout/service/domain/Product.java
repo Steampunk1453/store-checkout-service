@@ -1,4 +1,4 @@
-package com.store.checkout.service.repositories.domain;
+package com.store.checkout.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

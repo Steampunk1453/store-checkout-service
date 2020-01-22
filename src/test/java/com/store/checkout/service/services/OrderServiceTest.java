@@ -1,12 +1,12 @@
 package com.store.checkout.service.services;
 
-import com.store.checkout.service.dtos.BasketDto;
-import com.store.checkout.service.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.BasketDto;
+import com.store.checkout.service.services.dtos.OrderRequest;
 import com.store.checkout.service.repositories.BasketRepository;
-import com.store.checkout.service.repositories.domain.Basket;
-import com.store.checkout.service.repositories.domain.BasketProduct;
-import com.store.checkout.service.repositories.domain.OrderStatus;
-import com.store.checkout.service.repositories.domain.Product;
+import com.store.checkout.service.domain.Basket;
+import com.store.checkout.service.domain.BasketProduct;
+import com.store.checkout.service.domain.OrderStatus;
+import com.store.checkout.service.domain.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

@@ -2,9 +2,9 @@ package com.store.checkout.service.services;
 
 import com.store.checkout.service.exceptions.ResourceNotFoundException;
 import com.store.checkout.service.repositories.BasketRepository;
-import com.store.checkout.service.repositories.domain.Basket;
-import com.store.checkout.service.repositories.domain.BasketProduct;
-import com.store.checkout.service.repositories.domain.OrderStatus;
+import com.store.checkout.service.domain.Basket;
+import com.store.checkout.service.domain.BasketProduct;
+import com.store.checkout.service.domain.OrderStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

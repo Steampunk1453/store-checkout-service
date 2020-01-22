@@ -1,6 +1,6 @@
 package com.store.checkout.service.services;
 
-import com.store.checkout.service.repositories.domain.BasketProduct;
+import com.store.checkout.service.domain.BasketProduct;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
