@@ -35,7 +35,7 @@ public class BasketProductServiceTest {
 
     private BasketProduct buildBasketProduct() {
         BasketProduct basketProduct = new BasketProduct();
-        basketProduct.setQuantity(new Integer(3));
+        basketProduct.setQuantity(3);
         return basketProduct;
     }
 }
