@@ -2,7 +2,7 @@ package com.store.checkout.service.services;
 
 import com.store.checkout.service.exceptions.ResourceNotFoundException;
 import com.store.checkout.service.repositories.BasketRepository;
-import com.store.checkout.service.repositories.domain.Basket;
+import com.store.checkout.service.domain.Basket;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

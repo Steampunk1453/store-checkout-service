@@ -33,3 +33,13 @@ build/
 \.mvn/wrapper/MavenWrapperDownloader\.java
 
 *.log
+
+storeService.log.2019-12-09.0.gz
+
+storeService.log.2020-01-18.0.gz
+
+storeService.log.2020-01-19.0.gz
+
+storeService.log.2020-01-20.0.gz
+
+storeService.log.2020-01-21.0.gz

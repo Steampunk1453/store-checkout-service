@@ -1,4 +1,4 @@
-package com.store.checkout.service.dtos;
+package com.store.checkout.service.services.dtos;
 
 import lombok.Data;
 

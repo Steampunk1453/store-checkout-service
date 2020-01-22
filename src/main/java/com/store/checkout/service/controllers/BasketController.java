@@ -1,13 +1,14 @@
 package com.store.checkout.service.controllers;
 
-import com.store.checkout.service.dtos.BasketDto;
-import com.store.checkout.service.dtos.OrderRequest;
-import com.store.checkout.service.repositories.domain.Basket;
+import com.store.checkout.service.services.dtos.BasketDto;
+import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.services.BasketService;
 import com.store.checkout.service.services.OrderService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,11 +28,13 @@ public class BasketController {
 
     @GetMapping(path = "/amounts/{basketId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_USER')")
     public synchronized @NotNull Double getAmount(@PathVariable("basketId") long basketId) {
         return basketService.getTotalAmount(basketId);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     public synchronized ResponseEntity<Basket> create(@RequestBody OrderRequest orderRequest) {
         Basket basket = orderService.saveBasket(orderRequest);
         String uri = ServletUriComponentsBuilder
@@ -46,6 +49,7 @@ public class BasketController {
     }
 
     @PostMapping(path = "/products")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public synchronized ResponseEntity<Basket> add(@RequestBody BasketDto basketDto) {
         Basket basket = orderService.saveProduct(basketDto);
         String uri = ServletUriComponentsBuilder
@@ -61,6 +65,7 @@ public class BasketController {
 
     @DeleteMapping(value = "/{basketId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_USER')")
     public synchronized void delete(@PathVariable("basketId") long basketId) {
         basketService.delete(basketId);
     }

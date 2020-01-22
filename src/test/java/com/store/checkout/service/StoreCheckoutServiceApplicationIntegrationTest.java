@@ -1,13 +1,13 @@
 package com.store.checkout.service;
 
 import com.store.checkout.service.controllers.BasketController;
-import com.store.checkout.service.dtos.BasketDto;
-import com.store.checkout.service.dtos.OrderRequest;
+import com.store.checkout.service.domain.Basket;
+import com.store.checkout.service.domain.BasketProduct;
+import com.store.checkout.service.domain.OrderStatus;
+import com.store.checkout.service.domain.Product;
 import com.store.checkout.service.repositories.BasketRepository;
-import com.store.checkout.service.repositories.domain.Basket;
-import com.store.checkout.service.repositories.domain.BasketProduct;
-import com.store.checkout.service.repositories.domain.OrderStatus;
-import com.store.checkout.service.repositories.domain.Product;
+import com.store.checkout.service.services.dtos.BasketDto;
+import com.store.checkout.service.services.dtos.OrderRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -34,6 +36,8 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { StoreCheckoutServiceApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StoreCheckoutServiceApplicationIntegrationTest {
+
+    public static final String TEST_JWT_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsIkNMQUlNX1RPS0VOIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJpYXQiOjE1Nzk3MzE5MTMsImlzcyI6IklTU1VFUiJ9.eqD2aR2M1SVvdHVvLYWdUpduZ-D3YRiWQpVKHaDxBBk";
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -56,7 +60,11 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
 
     @Test
     public void whenCreateBasketApiCallReturnsBasket() {
-        final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/api/baskets", buildOrderRequest(), Basket.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + TEST_JWT_TOKEN);
+        HttpEntity<OrderRequest> request = new HttpEntity<>(buildOrderRequest(), headers);
+
+        final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/api/baskets", request, Basket.class);
 
         Basket response = postResponse.getBody();
 
@@ -75,7 +83,7 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
         List<BasketDto> basket = new ArrayList<>();
         BasketDto basketDto = new BasketDto();
         basketDto.setProduct(buildProduct());
-        basketDto.setQuantity(new Integer(2));
+        basketDto.setQuantity(2);
         basket.add(basketDto);
         orderRequest.setBasket(basket);
 
@@ -94,7 +102,7 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
     private Basket buildBasket() {
         List<BasketProduct> basketProducts = new ArrayList<>();
         BasketProduct basketProduct = new BasketProduct();
-        basketProduct.setQuantity(new Integer(2));
+        basketProduct.setQuantity(2);
         basketProducts.add(basketProduct);
 
         return Basket.builder()

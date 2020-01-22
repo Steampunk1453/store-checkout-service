@@ -1,6 +1,6 @@
-package com.store.checkout.service.dtos;
+package com.store.checkout.service.services.dtos;
 
-import com.store.checkout.service.repositories.domain.Product;
+import com.store.checkout.service.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
