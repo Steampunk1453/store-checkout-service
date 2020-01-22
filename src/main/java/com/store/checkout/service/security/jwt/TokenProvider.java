@@ -28,7 +28,6 @@ public class TokenProvider {
 				.signWith(SignatureAlgorithm.HS256, SecurityConstants.SIGNING_KEY)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setIssuer(SecurityConstants.ISSUER_TOKEN)
-				.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.ACCESS_TOKEN_VALIDITY_SECONDS*1000))
 				.compact();
 	}
 
