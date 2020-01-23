@@ -1,6 +1,6 @@
 # store-checkout-service
 
-Back-End service checkout store with Java, Spring Boot, H2 and Swagger 
+Back-End service checkout store with Java 11, Spring Boot, JWT, H2 and Swagger 
 
 
 * For testing and view the code in the project I recommend using the IntelliJ IDE (free Community or Ultimate edition)
@@ -13,7 +13,7 @@ Back-End service checkout store with Java, Spring Boot, H2 and Swagger
      
      In terminal execute: `mvn spring-boot:run`  
 
-* For testing navigate to:
+* For testing endpoints navigate to:
 
     http://localhost:8080/swagger-ui.html
 
@@ -30,14 +30,26 @@ Back-End service checkout store with Java, Spring Boot, H2 and Swagger
     User Name: sa
 
     Without password
+    
+* Security:
+
+    Service uses JWT and Spring Security for user authentication and endpoints securing
+    
+    With swagger: 
+    
+    Endpoint: /api/users {POST} Save user with password
+    
+    Endpoint: /login {POST} Login with the previous user and password in the response header copy authorization bearer: 
+    (Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX) and paste it in Authorize button in value field and press Authorize
+    
+    After the next requests to the endpoints enabled for this user will be available
+    
 
 * Notes: 
   
-  Service has not security because it is only accessible by the client
-  
   Project will be deployed with Docker and Kubernetes
   
-  To prevent the service from being accessible from outside only service client is going to put in Ingress configuration
+  To prevent the service from being accessible from outside you can put it in Ingress configuration
   
   https://kubernetes.io/docs/concepts/services-networking/ingress/
   
@@ -45,7 +57,7 @@ Back-End service checkout store with Java, Spring Boot, H2 and Swagger
   
   Service uses synchronized for controller methods for only one thread executes method at same time
   
-  Service has got unit and integration tests
+  Service implements unit and integration tests
   
 * TODO
 
