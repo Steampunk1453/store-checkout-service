@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +50,9 @@ public class OrderServiceTest {
         BasketProduct basketProduct = buildBasketProduct();
         Product product = buildProduct();
 
-        when(basketService.create(any(Basket.class))).thenReturn(basket);
-        when(basketProductService.create(any(BasketProduct.class))).thenReturn(basketProduct);
-        when(productService.getProduct(anyLong())).thenReturn(product);
+        when(basketService.save(any(Basket.class))).thenReturn(basket);
+        when(basketProductService.save(any(BasketProduct.class))).thenReturn(basketProduct);
+        when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
         Basket result = orderService.saveBasket(orderRequest);
@@ -70,8 +71,8 @@ public class OrderServiceTest {
         Product product = buildProduct();
 
         when(basketRepository.getOne(anyLong())).thenReturn(basket);
-        when(basketProductService.create(any(BasketProduct.class))).thenReturn(basketProduct);
-        when(productService.getProduct(anyLong())).thenReturn(product);
+        when(basketProductService.save(any(BasketProduct.class))).thenReturn(basketProduct);
+        when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
         Basket result = orderService.saveProduct(basketDto);
@@ -89,13 +90,13 @@ public class OrderServiceTest {
         Product product = Product.builder()
                 .id(1L)
                 .code("VOUCHER")
-                .name("Cabify Voucher")
-                .price(5.0)
+                .name("Voucher")
+                .price(new BigDecimal(5.0))
                 .build();
         basketDto.setProduct(product);
         basketDto.setQuantity(new Integer(2));
         basket.add(basketDto);
-        orderRequest.setBasket(basket);
+        orderRequest.setBaskets(basket);
 
         return orderRequest;
     }
@@ -124,8 +125,8 @@ public class OrderServiceTest {
         return Product.builder()
                 .id(1L)
                 .code("VOUCHER")
-                .name("Cabify Voucher")
-                .price(5.0)
+                .name("Voucher")
+                .price(new BigDecimal(5.0))
                 .build();
     }
 

@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -29,7 +31,7 @@ public class ProductServiceTest {
 
         when(productRepository.findById(anyLong())).thenReturn(java.util.Optional.of(product));
 
-        Product result = productService.getProduct(1L);
+        Product result = productService.get(1L);
 
         assertThat(result.getId(), is(product.getId()));
         assertThat(result.getCode(), is(product.getCode()));
@@ -39,15 +41,15 @@ public class ProductServiceTest {
 
     @Test(expected = ResourceNotFoundException.class)
     public void whenGetProductThrowsResourceNotFoundException() {
-        productService.getProduct(anyLong());
+        productService.get(anyLong());
     }
 
     private Product buildProduct() {
         return Product.builder()
                 .id(1L)
                 .code("VOUCHER")
-                .name("Cabify Voucher")
-                .price(5.0)
+                .name("Voucher")
+                .price(new BigDecimal(5.0))
                 .build();
     }
 
