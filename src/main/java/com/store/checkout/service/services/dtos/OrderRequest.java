@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class OrderRequest {
-    private List<BasketDto> basket;
+    private List<BasketDto> baskets;
 }
