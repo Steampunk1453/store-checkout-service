@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -27,14 +26,14 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public ResponseEntity<String> saveUser(@RequestBody AuthorizationRequest userRequest) {
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         userService.save(userMapper.toDomain(userRequest));
         return new ResponseEntity<>(userRequest.getUserName(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserResponse> getUser(@PathVariable long id) {
         final User user = userService.getUser(id);
@@ -45,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/users/")
+    @GetMapping("/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<User> users = userService.getAll();
