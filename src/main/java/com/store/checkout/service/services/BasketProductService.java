@@ -8,5 +8,5 @@ import javax.validation.constraints.NotNull;
 
 @Validated
 public interface BasketProductService {
-    BasketProduct create(@NotNull(message = "The products for basket cannot be null") @Valid BasketProduct basketProduct);
+    BasketProduct save(@NotNull(message = "The products for basket cannot be null") @Valid BasketProduct basketProduct);
 }
