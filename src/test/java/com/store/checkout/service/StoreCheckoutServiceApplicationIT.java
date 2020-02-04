@@ -1,6 +1,6 @@
 package com.store.checkout.service;
 
-import com.store.checkout.service.controllers.BasketController;
+import com.store.checkout.service.controllers.OrderController;
 import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.domain.BasketProduct;
 import com.store.checkout.service.domain.OrderStatus;
@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { StoreCheckoutServiceApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class StoreCheckoutServiceApplicationIntegrationTest {
+public class StoreCheckoutServiceApplicationIT {
 
     public static final String TEST_JWT_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsIkNMQUlNX1RPS0VOIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJpYXQiOjE1Nzk3MzE5MTMsImlzcyI6IklTU1VFUiJ9.eqD2aR2M1SVvdHVvLYWdUpduZ-D3YRiWQpVKHaDxBBk";
 
@@ -46,7 +47,7 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
     private int port;
 
     @Autowired
-    private BasketController basketController;
+    private OrderController orderController;
 
     @Mock
     private BasketRepository basketRepository;
@@ -54,7 +55,7 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
     @Test
     public void contextLoads() {
         Assertions
-                .assertThat(basketController)
+                .assertThat(orderController)
                 .isNotNull();
     }
 
@@ -64,7 +65,7 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
         headers.set("Authorization", "Bearer " + TEST_JWT_TOKEN);
         HttpEntity<OrderRequest> request = new HttpEntity<>(buildOrderRequest(), headers);
 
-        final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/api/baskets", request, Basket.class);
+        final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/baskets", request, Basket.class);
 
         Basket response = postResponse.getBody();
 
@@ -85,7 +86,7 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
         basketDto.setProduct(buildProduct());
         basketDto.setQuantity(2);
         basket.add(basketDto);
-        orderRequest.setBasket(basket);
+        orderRequest.setBaskets(basket);
 
         return orderRequest;
     }
@@ -94,8 +95,8 @@ public class StoreCheckoutServiceApplicationIntegrationTest {
         return Product.builder()
                 .id(1L)
                 .code("VOUCHER")
-                .name("Cabify Voucher")
-                .price(5.0)
+                .name("Voucher")
+                .price(new BigDecimal(5.0))
                 .build();
     }
 
