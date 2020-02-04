@@ -40,18 +40,4 @@ public class BasketProduct {
         return this.pk.getProduct();
     }
 
-    @Transient
-    public Double getTotalPrice() {
-        if(PROMOTION_FREE_PRODUCT_CODE.equals(getProduct().getCode()) && getQuantity() % 2 == 0) {
-            return getProduct().getPrice() / 2 * getQuantity();
-        }
-        if((PROMOTION_FREE_PRODUCT_CODE.equals(getProduct().getCode()) && getQuantity() % 2 != 0)) {
-            return (getProduct().getPrice() / 2) * getQuantity() + 2.5;
-        }
-        if(PROMOTION_DISCOUNT_PRODUCT_CODE.equals(getProduct().getCode()) && getQuantity() >= PROMOTION_PRODUCT_DISCOUNT_QUANTITY) {
-            return (getProduct().getPrice() - PROMOTION_PRODUCT_DISCOUNT) * getQuantity();
-        }
-        return getProduct().getPrice() * getQuantity();
-    }
-
 }
