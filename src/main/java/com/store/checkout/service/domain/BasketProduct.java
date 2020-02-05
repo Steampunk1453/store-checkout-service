@@ -16,11 +16,6 @@ import javax.persistence.Transient;
 @NoArgsConstructor
 public class BasketProduct {
 
-    public static final String PROMOTION_FREE_PRODUCT_CODE = "VOUCHER";
-    public static final String PROMOTION_DISCOUNT_PRODUCT_CODE = "TSHIRT";
-    public static final int PROMOTION_PRODUCT_DISCOUNT = 1;
-    public static final int PROMOTION_PRODUCT_DISCOUNT_QUANTITY = 3;
-
     @EmbeddedId
     @JsonIgnore
     private BasketProductPK pk;
