@@ -1,9 +1,8 @@
 package com.store.checkout.service.services;
 
 import com.store.checkout.service.domain.Product;
-
-import java.math.BigDecimal;
+import com.store.checkout.service.services.dtos.DiscountDto;
 
 public interface DiscounterService {
-    BigDecimal getTotalPrice(Product product, Integer quantity);
+    DiscountDto getDiscount(Product product, Integer quantity);
 }
