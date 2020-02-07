@@ -1,7 +1,7 @@
 package com.store.checkout.service.services;
 
 import com.store.checkout.service.services.dtos.BasketDto;
-import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.OrderDto;
 import com.store.checkout.service.repositories.BasketRepository;
 import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.domain.BasketProduct;
@@ -45,7 +45,7 @@ public class OrderServiceTest {
 
     @Test
     public void whenSaveBasketReturnsBasket() {
-        OrderRequest orderRequest = buildOrderRequest();
+        OrderDto orderDto = buildOrderRequest();
         Basket basket = buildBasket();
         BasketProduct basketProduct = buildBasketProduct();
         Product product = buildProduct();
@@ -55,7 +55,7 @@ public class OrderServiceTest {
         when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
-        Basket result = orderService.saveBasket(orderRequest);
+        Basket result = orderService.saveBasket(orderDto);
 
         assertThat(result.getId(), is(basket.getId()));
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));
@@ -83,8 +83,8 @@ public class OrderServiceTest {
         assertThat(result.getBasketProducts().get(0).getQuantity(), is(basket.getBasketProducts().get(0).getQuantity()));
     }
 
-    private OrderRequest buildOrderRequest() {
-        OrderRequest orderRequest = new OrderRequest();
+    private OrderDto buildOrderRequest() {
+        OrderDto orderDto = new OrderDto();
         List<BasketDto> basket = new ArrayList<>();
         BasketDto basketDto = new BasketDto();
         Product product = Product.builder()
@@ -96,9 +96,9 @@ public class OrderServiceTest {
         basketDto.setProduct(product);
         basketDto.setQuantity(new Integer(2));
         basket.add(basketDto);
-        orderRequest.setBaskets(basket);
+        orderDto.setBaskets(basket);
 
-        return orderRequest;
+        return orderDto;
     }
 
     private Basket buildBasket() {

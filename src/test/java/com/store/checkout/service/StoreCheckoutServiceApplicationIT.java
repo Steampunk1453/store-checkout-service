@@ -7,7 +7,7 @@ import com.store.checkout.service.domain.OrderStatus;
 import com.store.checkout.service.domain.Product;
 import com.store.checkout.service.repositories.BasketRepository;
 import com.store.checkout.service.services.dtos.BasketDto;
-import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.OrderDto;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,7 +63,7 @@ public class StoreCheckoutServiceApplicationIT {
     public void whenCreateBasketApiCallReturnsBasket() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + TEST_JWT_TOKEN);
-        HttpEntity<OrderRequest> request = new HttpEntity<>(buildOrderRequest(), headers);
+        HttpEntity<OrderDto> request = new HttpEntity<>(buildOrderRequest(), headers);
 
         final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/baskets", request, Basket.class);
 
@@ -79,16 +79,16 @@ public class StoreCheckoutServiceApplicationIT {
         assertThat(response.getBasketProducts(), hasItem(hasProperty("quantity", is(2))));
     }
 
-    private OrderRequest buildOrderRequest() {
-        OrderRequest orderRequest = new OrderRequest();
+    private OrderDto buildOrderRequest() {
+        OrderDto orderDto = new OrderDto();
         List<BasketDto> basket = new ArrayList<>();
         BasketDto basketDto = new BasketDto();
         basketDto.setProduct(buildProduct());
         basketDto.setQuantity(2);
         basket.add(basketDto);
-        orderRequest.setBaskets(basket);
+        orderDto.setBaskets(basket);
 
-        return orderRequest;
+        return orderDto;
     }
 
     private Product buildProduct() {

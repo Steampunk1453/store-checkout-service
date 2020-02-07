@@ -1,7 +1,7 @@
 package com.store.checkout.service.services;
 
 import com.store.checkout.service.services.dtos.BasketDto;
-import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.OrderDto;
 import com.store.checkout.service.exceptions.ResourceNotFoundException;
 import com.store.checkout.service.repositories.BasketRepository;
 import com.store.checkout.service.domain.Basket;
@@ -33,8 +33,8 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public Basket saveBasket(OrderRequest orderRequest) {
-        List<BasketDto> basketDto = orderRequest.getBaskets();
+    public Basket saveBasket(OrderDto orderDto) {
+        List<BasketDto> basketDto = orderDto.getBaskets();
         validateProductsExistence(basketDto);
         Basket basket = new Basket();
         basket.setStatus(OrderStatus.PAID.name());

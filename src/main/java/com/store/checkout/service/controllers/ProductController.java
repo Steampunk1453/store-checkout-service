@@ -1,9 +1,7 @@
 package com.store.checkout.service.controllers;
 
-import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.domain.Product;
 import com.store.checkout.service.services.ProductService;
-import com.store.checkout.service.services.dtos.OrderRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

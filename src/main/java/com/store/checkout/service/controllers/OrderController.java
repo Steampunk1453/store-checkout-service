@@ -4,7 +4,7 @@ import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.services.BasketService;
 import com.store.checkout.service.services.OrderService;
 import com.store.checkout.service.services.dtos.BasketDto;
-import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.OrderDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class OrderController {
 
     @PostMapping("/baskets")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public synchronized ResponseEntity<Basket> save(@RequestBody OrderRequest orderRequest) {
-        Basket basket = orderService.saveBasket(orderRequest);
+    public synchronized ResponseEntity<Basket> save(@RequestBody OrderDto orderDto) {
+        Basket basket = orderService.saveBasket(orderDto);
         String uri = ServletUriComponentsBuilder
                 .fromCurrentServletMapping()
                 .path("/baskets")
