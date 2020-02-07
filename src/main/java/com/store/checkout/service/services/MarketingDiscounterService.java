@@ -1,6 +1,7 @@
 package com.store.checkout.service.services;
 
 import com.store.checkout.service.domain.Product;
+import com.store.checkout.service.services.dtos.DiscountDto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,15 +13,29 @@ public class MarketingDiscounterService implements DiscounterService {
     public static final String PROMOTION_FREE_PRODUCT_CODE = "VOUCHER";
 
     @Override
-    public BigDecimal getTotalPrice(Product product, Integer quantity) {
-        if(PROMOTION_FREE_PRODUCT_CODE.equals(product.getCode()) && quantity % 2 == 0) {
-            return product.getPrice().divide(BigDecimal.valueOf(2), 2, RoundingMode.CEILING).multiply(BigDecimal.valueOf(quantity));
+    public DiscountDto getDiscount(Product product, Integer quantity) {
+        DiscountDto discount = new DiscountDto();
+        if(PROMOTION_FREE_PRODUCT_CODE.equals(product.getCode())) {
+            return applyDiscount(product, quantity);
+        } else {
+            discount.setDiscounted(false);
+            return discount;
         }
-        if((PROMOTION_FREE_PRODUCT_CODE.equals(product.getCode()) && quantity % 2 != 0)) {
-            return product.getPrice().divide(BigDecimal.valueOf(2), 2, RoundingMode.CEILING).multiply(BigDecimal.valueOf(quantity))
-                    .add(BigDecimal.valueOf(2.5));
+    }
+
+    private DiscountDto applyDiscount(Product product, Integer quantity) {
+        DiscountDto discount = new DiscountDto();
+        if(quantity % 2 == 0) {
+            discount.setProductTotalPrice(product.getPrice().divide(BigDecimal.valueOf(2), 2, RoundingMode.CEILING)
+                    .multiply(BigDecimal.valueOf(quantity)));
+            discount.setDiscounted(true);
         }
-        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
+        if((quantity % 2 != 0)) {
+            discount.setProductTotalPrice(product.getPrice().divide(BigDecimal.valueOf(2), 2, RoundingMode.CEILING).multiply(BigDecimal.valueOf(quantity))
+                    .add(BigDecimal.valueOf(2.5)));
+            discount.setDiscounted(true);
+        }
+        return discount;
     }
 
 }
