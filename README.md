@@ -44,6 +44,10 @@ Back-End service checkout store with Java 11, Spring Boot, JWT, H2 and Swagger
     
     After the next requests to the endpoints enabled for this user will be available
     
+    Admin user:
+    
+    User = user1; password = password1
+    
 
 * Notes: 
   
