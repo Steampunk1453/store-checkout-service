@@ -5,5 +5,5 @@ import com.store.checkout.service.domain.Product;
 import javax.validation.constraints.Min;
 
 public interface ProductService {
-    Product getProduct(@Min(value = 1L, message = "Invalid product ID") long id);
+    Product get(@Min(value = 1L, message = "Invalid product ID") long id);
 }

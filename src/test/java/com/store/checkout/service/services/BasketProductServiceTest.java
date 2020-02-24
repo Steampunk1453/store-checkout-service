@@ -28,7 +28,7 @@ public class BasketProductServiceTest {
 
         when(basketProductRepository.save(any(BasketProduct.class))).thenReturn(basketProduct);
 
-        BasketProduct result = basketProductService.create(new BasketProduct());
+        BasketProduct result = basketProductService.save(new BasketProduct());
 
         assertThat(result.getQuantity(), is(basketProduct.getQuantity()));
     }

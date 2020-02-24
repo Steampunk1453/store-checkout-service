@@ -1,7 +1,7 @@
 package com.store.checkout.service.services;
 
 import com.store.checkout.service.services.dtos.BasketDto;
-import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.OrderDto;
 import com.store.checkout.service.exceptions.ResourceNotFoundException;
 import com.store.checkout.service.repositories.BasketRepository;
 import com.store.checkout.service.domain.Basket;
@@ -33,12 +33,12 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public Basket saveBasket(OrderRequest orderRequest) {
-        List<BasketDto> basketDto = orderRequest.getBasket();
+    public Basket saveBasket(OrderDto orderDto) {
+        List<BasketDto> basketDto = orderDto.getBaskets();
         validateProductsExistence(basketDto);
         Basket basket = new Basket();
         basket.setStatus(OrderStatus.PAID.name());
-        basket = basketService.create(basket);
+        basket = basketService.save(basket);
         log.debug("Basket created");
 
         List<BasketProduct> basketProducts = new ArrayList<>();
@@ -66,7 +66,7 @@ public class DefaultOrderService implements OrderService {
     private void validateProductsExistence(List<BasketDto> basketDto) {
         List<BasketDto> list = basketDto
                 .stream()
-                .filter(os -> Objects.isNull(productService.getProduct(os
+                .filter(bk -> Objects.isNull(productService.get(bk
                         .getProduct()
                         .getId())))
                 .collect(Collectors.toList());
@@ -77,7 +77,7 @@ public class DefaultOrderService implements OrderService {
     }
 
     private void addProducts(Basket basket, List<BasketProduct> basketProducts, BasketDto dto) {
-        basketProducts.add(basketProductService.create(new BasketProduct(basket, productService.getProduct(dto
+        basketProducts.add(basketProductService.save(new BasketProduct(basket, productService.get(dto
                 .getProduct()
                 .getId()), dto.getQuantity())));
     }

@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class OrderRequest {
-    private List<BasketDto> basket;
+public class OrderDto {
+    private List<BasketDto> baskets;
 }

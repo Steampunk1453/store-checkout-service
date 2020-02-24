@@ -1,7 +1,7 @@
 package com.store.checkout.service.services;
 
 import com.store.checkout.service.services.dtos.BasketDto;
-import com.store.checkout.service.services.dtos.OrderRequest;
+import com.store.checkout.service.services.dtos.OrderDto;
 import com.store.checkout.service.repositories.BasketRepository;
 import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.domain.BasketProduct;
@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +45,17 @@ public class OrderServiceTest {
 
     @Test
     public void whenSaveBasketReturnsBasket() {
-        OrderRequest orderRequest = buildOrderRequest();
+        OrderDto orderDto = buildOrderRequest();
         Basket basket = buildBasket();
         BasketProduct basketProduct = buildBasketProduct();
         Product product = buildProduct();
 
-        when(basketService.create(any(Basket.class))).thenReturn(basket);
-        when(basketProductService.create(any(BasketProduct.class))).thenReturn(basketProduct);
-        when(productService.getProduct(anyLong())).thenReturn(product);
+        when(basketService.save(any(Basket.class))).thenReturn(basket);
+        when(basketProductService.save(any(BasketProduct.class))).thenReturn(basketProduct);
+        when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
-        Basket result = orderService.saveBasket(orderRequest);
+        Basket result = orderService.saveBasket(orderDto);
 
         assertThat(result.getId(), is(basket.getId()));
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));
@@ -70,8 +71,8 @@ public class OrderServiceTest {
         Product product = buildProduct();
 
         when(basketRepository.getOne(anyLong())).thenReturn(basket);
-        when(basketProductService.create(any(BasketProduct.class))).thenReturn(basketProduct);
-        when(productService.getProduct(anyLong())).thenReturn(product);
+        when(basketProductService.save(any(BasketProduct.class))).thenReturn(basketProduct);
+        when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
         Basket result = orderService.saveProduct(basketDto);
@@ -82,22 +83,22 @@ public class OrderServiceTest {
         assertThat(result.getBasketProducts().get(0).getQuantity(), is(basket.getBasketProducts().get(0).getQuantity()));
     }
 
-    private OrderRequest buildOrderRequest() {
-        OrderRequest orderRequest = new OrderRequest();
+    private OrderDto buildOrderRequest() {
+        OrderDto orderDto = new OrderDto();
         List<BasketDto> basket = new ArrayList<>();
         BasketDto basketDto = new BasketDto();
         Product product = Product.builder()
                 .id(1L)
                 .code("VOUCHER")
-                .name("Cabify Voucher")
-                .price(5.0)
+                .name("Voucher")
+                .price(new BigDecimal(5.0))
                 .build();
         basketDto.setProduct(product);
         basketDto.setQuantity(new Integer(2));
         basket.add(basketDto);
-        orderRequest.setBasket(basket);
+        orderDto.setBaskets(basket);
 
-        return orderRequest;
+        return orderDto;
     }
 
     private Basket buildBasket() {
@@ -124,8 +125,8 @@ public class OrderServiceTest {
         return Product.builder()
                 .id(1L)
                 .code("VOUCHER")
-                .name("Cabify Voucher")
-                .price(5.0)
+                .name("Voucher")
+                .price(new BigDecimal(5.0))
                 .build();
     }
 

@@ -35,7 +35,7 @@ public class BasketServiceTest {
 
         when(basketRepository.save(any(Basket.class))).thenReturn(basket);
 
-        Basket result = basketService.create(buildBasket());
+        Basket result = basketService.save(buildBasket());
 
         assertThat(result.getId(), is(basket.getId()));
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));

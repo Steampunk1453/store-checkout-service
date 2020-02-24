@@ -32,14 +32,4 @@ public class Basket {
     @Valid
     private List<BasketProduct> basketProducts;
 
-    @Transient
-    public Double getTotalAmount() {
-        double sum = 0D;
-        List<BasketProduct> basketProducts = getBasketProducts();
-        for (BasketProduct bp : basketProducts) {
-            sum += bp.getTotalPrice();
-        }
-        return sum;
-    }
-
 }

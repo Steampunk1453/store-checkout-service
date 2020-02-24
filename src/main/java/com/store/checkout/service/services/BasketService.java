@@ -5,14 +5,15 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 
 @Validated
 public interface BasketService {
 
-    Basket create(@NotNull(message = "Basket cannot be null") @Valid Basket basket);
+    Basket save(@NotNull(message = "Basket cannot be null") @Valid Basket basket);
     void update(@NotNull(message = "Basket cannot be null") @Valid Basket basket);
-    Double getTotalAmount(long basketId);
+    BigDecimal getTotalAmount(long basketId);
     void delete(long basketId);
 
 }

@@ -6,6 +6,7 @@ import com.store.checkout.service.domain.Basket;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Service
@@ -13,13 +14,15 @@ import java.time.LocalDate;
 public class DefaultBasketService implements BasketService {
 
     private final BasketRepository basketRepository;
+    private final PriceCalculatorService priceCalculatorService;
 
-    public DefaultBasketService(BasketRepository basketRepository) {
+    public DefaultBasketService(BasketRepository basketRepository, PriceCalculatorService priceCalculatorService) {
         this.basketRepository = basketRepository;
+        this.priceCalculatorService = priceCalculatorService;
     }
 
     @Override
-    public Basket create(Basket basket) {
+    public Basket save(Basket basket) {
         basket.setDateCreated(LocalDate.now());
         return basketRepository.save(basket);
     }
@@ -30,11 +33,12 @@ public class DefaultBasketService implements BasketService {
     }
 
     @Override
-    public Double getTotalAmount(long basketId) {
+    public BigDecimal getTotalAmount(long basketId) {
         Basket basket = basketRepository
                 .findById(basketId)
                 .orElseThrow(() -> new ResourceNotFoundException("Basket not found with id " + basketId));
-        return basket.getTotalAmount();
+
+        return priceCalculatorService.calculateTotalPrice(basket.getBasketProducts());
     }
 
     @Override
@@ -44,4 +48,5 @@ public class DefaultBasketService implements BasketService {
                 .orElseThrow(() -> new ResourceNotFoundException("Basket not found with id " + basketId));
         basketRepository.deleteById(basketId);
     }
+
 }

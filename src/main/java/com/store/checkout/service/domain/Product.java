@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -27,6 +28,6 @@ public class Product {
     private String name;
 
     @JsonIgnore
-    private Double price;
+    private BigDecimal price;
 
 }

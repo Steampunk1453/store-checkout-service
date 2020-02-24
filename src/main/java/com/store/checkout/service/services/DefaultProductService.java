@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 @Service
 @Transactional
 public class DefaultProductService implements ProductService {
@@ -18,7 +21,7 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public Product getProduct(long id) {
+    public Product get(long id) {
         return productRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
