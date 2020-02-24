@@ -26,8 +26,8 @@ public class FinancialDiscounterService implements DiscounterService {
 
     private DiscountDto applyDiscount(Product product, Integer quantity) {
         DiscountDto discount = new DiscountDto();
-        discount.setProductTotalPrice(product.getPrice().subtract(BigDecimal.valueOf(PROMOTION_PRODUCT_DISCOUNT)
-                .multiply(BigDecimal.valueOf(quantity))));
+        discount.setProductTotalPrice((product.getPrice().subtract(BigDecimal.valueOf(PROMOTION_PRODUCT_DISCOUNT))
+        .multiply(BigDecimal.valueOf(quantity))));
         discount.setDiscounted(true);
         return discount;
     }
