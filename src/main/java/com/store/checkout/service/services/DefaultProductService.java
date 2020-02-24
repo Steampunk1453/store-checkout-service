@@ -27,9 +27,4 @@ public class DefaultProductService implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
     }
 
-    @Override
-    public Product save(@NotNull(message = "The product cannot be null") @Valid Product product) {
-        return productRepository.save(product);
-    }
-
 }
