@@ -31,8 +31,8 @@ public class MarketingDiscounterService implements DiscounterService {
             discount.setDiscounted(true);
         }
         if((quantity % 2 != 0)) {
-            discount.setProductTotalPrice(product.getPrice().divide(BigDecimal.valueOf(2), 2, RoundingMode.CEILING).multiply(BigDecimal.valueOf(quantity))
-                    .add(BigDecimal.valueOf(2.5)));
+            discount.setProductTotalPrice(product.getPrice().divide(BigDecimal.valueOf(2), 2, RoundingMode.CEILING)
+                    .multiply(BigDecimal.valueOf(quantity)).add(BigDecimal.valueOf(2.5)));
             discount.setDiscounted(true);
         }
         return discount;
