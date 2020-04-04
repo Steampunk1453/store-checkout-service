@@ -24,18 +24,18 @@ public class BasketProductServiceTest {
 
     @Test
     public void whenCreateReturnsBasketProduct() {
-        BasketProduct basketProduct = buildBasketProduct();
-
+        var basketProduct = buildBasketProduct();
         when(basketProductRepository.save(any(BasketProduct.class))).thenReturn(basketProduct);
 
-        BasketProduct result = basketProductService.save(new BasketProduct());
+        var result = basketProductService.save(new BasketProduct());
 
         assertThat(result.getQuantity(), is(basketProduct.getQuantity()));
     }
 
     private BasketProduct buildBasketProduct() {
-        BasketProduct basketProduct = new BasketProduct();
+        var basketProduct = new BasketProduct();
         basketProduct.setQuantity(3);
         return basketProduct;
     }
+
 }

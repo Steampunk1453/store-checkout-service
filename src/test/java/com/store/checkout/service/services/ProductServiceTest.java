@@ -27,11 +27,10 @@ public class ProductServiceTest {
 
     @Test
     public void whenGetProductReturnsProduct() {
-        Product product = buildProduct();
-
+        var product = buildProduct();
         when(productRepository.findById(anyLong())).thenReturn(java.util.Optional.of(product));
 
-        Product result = productService.get(1L);
+        var result = productService.get(1L);
 
         assertThat(result.getId(), is(product.getId()));
         assertThat(result.getCode(), is(product.getCode()));
@@ -49,7 +48,7 @@ public class ProductServiceTest {
                 .id(1L)
                 .code("VOUCHER")
                 .name("Voucher")
-                .price(new BigDecimal(5.0))
+                .price(new BigDecimal("5.0"))
                 .build();
     }
 

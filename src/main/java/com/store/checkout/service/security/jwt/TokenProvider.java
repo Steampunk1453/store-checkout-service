@@ -33,9 +33,9 @@ public class TokenProvider {
 
 	public static UsernamePasswordAuthenticationToken getAuthentication(final String token,
                                                                         final UserDetails userDetails) {
-		final JwtParser jwtParser = Jwts.parser().setSigningKey(SecurityConstants.SIGNING_KEY);
-		final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
-		final Claims claims = claimsJws.getBody();
+		final var jwtParser = Jwts.parser().setSigningKey(SecurityConstants.SIGNING_KEY);
+		final var claimsJws = jwtParser.parseClaimsJws(token);
+		final var claims = claimsJws.getBody();
 		final Collection<SimpleGrantedAuthority> authorities =
 				Arrays.stream(claims.get(SecurityConstants.AUTHORITIES_KEY).toString().split(","))
 						.map(SimpleGrantedAuthority::new)
@@ -44,8 +44,8 @@ public class TokenProvider {
 	}
 
 	public static String getUserName(final String token) {
-		final JwtParser jwtParser = Jwts.parser().setSigningKey(SecurityConstants.SIGNING_KEY);
-		final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
+		final var jwtParser = Jwts.parser().setSigningKey(SecurityConstants.SIGNING_KEY);
+		final var claimsJws = jwtParser.parseClaimsJws(token);
 		return claimsJws.getBody().getSubject();
 	}
 

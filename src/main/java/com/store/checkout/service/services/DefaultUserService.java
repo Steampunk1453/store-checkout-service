@@ -30,7 +30,7 @@ public class DefaultUserService implements UserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		final User retrievedUser = userRepository.findByName(userName);
+		final var retrievedUser = userRepository.findByName(userName);
 		if (retrievedUser == null) {
 			throw new UsernameNotFoundException("Invalid username or password");
 		}
@@ -44,10 +44,10 @@ public class DefaultUserService implements UserService {
 
 	@Override
 	public User save(User user) {
-		Role userRole = roleRepository.findByName("USER");
+		var userRole = roleRepository.findByName("USER");
 		Set<Role> roles = new HashSet<>();
 		roles.add(userRole);
-		User userToSave = User.builder().name(user.getName()).password(user.getPassword()).roles(roles).build();
+		var userToSave = User.builder().name(user.getName()).password(user.getPassword()).roles(roles).build();
 		return userRepository.save(userToSave);
 	}
 
@@ -55,4 +55,5 @@ public class DefaultUserService implements UserService {
 	public List<User> getAll() {
 		return userRepository.findAll();
 	}
+
 }

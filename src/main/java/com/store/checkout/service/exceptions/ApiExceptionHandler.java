@@ -17,9 +17,9 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handle(ConstraintViolationException e) {
-        ErrorResponse errors = new ErrorResponse();
-        for (ConstraintViolation violation : e.getConstraintViolations()) {
-            ErrorItem error = new ErrorItem();
+        var errors = new ErrorResponse();
+        for (var violation : e.getConstraintViolations()) {
+            var error = new ErrorItem();
             error.setCode(violation.getMessageTemplate());
             error.setMessage(violation.getMessage());
             errors.addError(error);
@@ -30,9 +30,8 @@ public class ApiExceptionHandler {
     @SuppressWarnings("rawtypes")
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorItem> handle(ResourceNotFoundException e) {
-        ErrorItem error = new ErrorItem();
+        var error = new ErrorItem();
         error.setMessage(e.getMessage());
-
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -49,6 +48,5 @@ public class ApiExceptionHandler {
         public void addError(ErrorItem error) {
             this.errors.add(error);
         }
-
     }
 }

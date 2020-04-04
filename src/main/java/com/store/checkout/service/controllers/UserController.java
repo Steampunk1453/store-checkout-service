@@ -36,22 +36,22 @@ public class UserController {
     @GetMapping("/users/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserResponse> getUser(@PathVariable long id) {
-        final User user = userService.getUser(id);
+        final var user = userService.getUser(id);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-        UserResponse userResponse = userMapper.toResponse(user);
+        var userResponse = userMapper.toResponse(user);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<User> users = userService.getAll();
+        var users = userService.getAll();
         if (users == null) {
             return ResponseEntity.notFound().build();
         }
-        List<UserResponse> userResponses = userMapper.usersToResponse(users);
+        var userResponses = userMapper.usersToResponse(users);
         return new ResponseEntity<>(userResponses, HttpStatus.OK);
     }
 

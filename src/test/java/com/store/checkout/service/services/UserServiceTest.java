@@ -1,6 +1,5 @@
 package com.store.checkout.service.services;
 
-import com.store.checkout.service.domain.Basket;
 import com.store.checkout.service.domain.Role;
 import com.store.checkout.service.domain.User;
 import com.store.checkout.service.repositories.RoleRepository;
@@ -34,8 +33,7 @@ public class UserServiceTest {
 
     @Test
     public void whenGetLoadUserByUsernameCallMapper() {
-        User user = buildUser();
-
+        var user = buildUser();
         when(userRepository.findByName(anyString())).thenReturn(user);
 
         userService.loadUserByUsername("username");
@@ -45,9 +43,8 @@ public class UserServiceTest {
 
     @Test
     public void whenSaveCallRepository() {
-        Role role = buildRole();
-        User user = buildUser();
-
+        var role = buildRole();
+        var user = buildUser();
         when(roleRepository.findByName(anyString())).thenReturn(role);
 
         userService.save(user);

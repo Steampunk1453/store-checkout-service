@@ -52,8 +52,8 @@ public class SwaggerConfiguration {
     }
 
     private List<SecurityReference> defaultAuth() {
-        final AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        final AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{authorizationScope};
+        final var authorizationScope = new AuthorizationScope("global", "accessEverything");
+        final var authorizationScopes = new AuthorizationScope[]{authorizationScope};
         return Collections.singletonList(new SecurityReference("Bearer", authorizationScopes));
     }
 
