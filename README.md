@@ -57,8 +57,6 @@ Back-End service checkout store with Java 11, Spring Boot, JWT, H2 and Swagger
   
   https://kubernetes.io/docs/concepts/services-networking/ingress/
   
-  Service uses @Transient methods in some entities for calculated data, so there is no need to store it in the database
-  
   Service uses synchronized for controller methods for only one thread executes method at same time
   
   Service implements unit and integration tests
