@@ -34,7 +34,7 @@ public class DefaultBasketService implements BasketService {
 
     @Override
     public BigDecimal getTotalAmount(long basketId) {
-        Basket basket = basketRepository
+        var basket = basketRepository
                 .findById(basketId)
                 .orElseThrow(() -> new ResourceNotFoundException("Basket not found with id " + basketId));
 

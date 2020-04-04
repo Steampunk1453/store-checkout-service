@@ -21,15 +21,15 @@ public class DefaultPriceCalculatorService implements PriceCalculatorService {
 
     @Override
     public BigDecimal calculateTotalPrice(List<BasketProduct> basketProducts) {
-        BigDecimal total = new BigDecimal(0);
+        var total = new BigDecimal(0);
 
-        for (BasketProduct basketProduct : basketProducts) {
+        for (var basketProduct : basketProducts) {
 
-            Product product = basketProduct.getProduct();
-            Integer quantity = basketProduct.getQuantity();
+            var product = basketProduct.getProduct();
+            var quantity = basketProduct.getQuantity();
 
-            DiscountDto marketingDiscount = marketingDiscounterService.getDiscount(product, quantity);
-            DiscountDto financialDiscount = financialDiscounterService.getDiscount(product, quantity);
+            var marketingDiscount = marketingDiscounterService.getDiscount(product, quantity);
+            var financialDiscount = financialDiscounterService.getDiscount(product, quantity);
 
             if(marketingDiscount.isDiscounted()) {
                 total = total.add(marketingDiscount.getProductTotalPrice());

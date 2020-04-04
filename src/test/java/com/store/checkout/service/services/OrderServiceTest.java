@@ -45,17 +45,16 @@ public class OrderServiceTest {
 
     @Test
     public void whenSaveBasketReturnsBasket() {
-        OrderDto orderDto = buildOrderRequest();
-        Basket basket = buildBasket();
-        BasketProduct basketProduct = buildBasketProduct();
+        var orderDto = buildOrderRequest();
+        var basket = buildBasket();
+        var basketProduct = buildBasketProduct();
         Product product = buildProduct();
-
         when(basketService.save(any(Basket.class))).thenReturn(basket);
         when(basketProductService.save(any(BasketProduct.class))).thenReturn(basketProduct);
         when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
-        Basket result = orderService.saveBasket(orderDto);
+        var result = orderService.saveBasket(orderDto);
 
         assertThat(result.getId(), is(basket.getId()));
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));
@@ -65,17 +64,16 @@ public class OrderServiceTest {
 
     @Test
     public void whenSaveProductReturnsBasket() {
-        BasketDto basketDto = buildBasketDto();
-        Basket basket = buildBasket();
-        BasketProduct basketProduct = buildBasketProduct();
-        Product product = buildProduct();
-
+        var basketDto = buildBasketDto();
+        var basket = buildBasket();
+        var basketProduct = buildBasketProduct();
+        var product = buildProduct();
         when(basketRepository.getOne(anyLong())).thenReturn(basket);
         when(basketProductService.save(any(BasketProduct.class))).thenReturn(basketProduct);
         when(productService.get(anyLong())).thenReturn(product);
         doNothing().when(basketService).update(any(Basket.class));
 
-        Basket result = orderService.saveProduct(basketDto);
+        var result = orderService.saveProduct(basketDto);
 
         assertThat(result.getId(), is(basket.getId()));
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));
@@ -84,17 +82,17 @@ public class OrderServiceTest {
     }
 
     private OrderDto buildOrderRequest() {
-        OrderDto orderDto = new OrderDto();
+        var orderDto = new OrderDto();
         List<BasketDto> basket = new ArrayList<>();
-        BasketDto basketDto = new BasketDto();
-        Product product = Product.builder()
+        var basketDto = new BasketDto();
+        var product = Product.builder()
                 .id(1L)
                 .code("VOUCHER")
                 .name("Voucher")
-                .price(new BigDecimal(5.0))
+                .price(new BigDecimal("5.0"))
                 .build();
         basketDto.setProduct(product);
-        basketDto.setQuantity(new Integer(2));
+        basketDto.setQuantity(2);
         basket.add(basketDto);
         orderDto.setBaskets(basket);
 
@@ -103,8 +101,8 @@ public class OrderServiceTest {
 
     private Basket buildBasket() {
         List<BasketProduct> basketProducts = new ArrayList<>();
-        BasketProduct basketProduct = new BasketProduct();
-        basketProduct.setQuantity(new Integer(2));
+        var basketProduct = new BasketProduct();
+        basketProduct.setQuantity(2);
         basketProducts.add(basketProduct);
 
         return Basket.builder()
@@ -116,8 +114,8 @@ public class OrderServiceTest {
     }
 
     private BasketProduct buildBasketProduct() {
-        BasketProduct basketProduct = new BasketProduct();
-        basketProduct.setQuantity(new Integer(3));
+        var basketProduct = new BasketProduct();
+        basketProduct.setQuantity(3);
         return basketProduct;
     }
 
@@ -126,7 +124,7 @@ public class OrderServiceTest {
                 .id(1L)
                 .code("VOUCHER")
                 .name("Voucher")
-                .price(new BigDecimal(5.0))
+                .price(new BigDecimal("5.0"))
                 .build();
     }
 
@@ -134,7 +132,7 @@ public class OrderServiceTest {
         return BasketDto.builder()
                 .basketId(1L)
                 .product(buildProduct())
-                .quantity(new Integer(3))
+                .quantity(3)
                 .build();
     }
 

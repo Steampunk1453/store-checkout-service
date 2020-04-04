@@ -34,15 +34,15 @@ public class DefaultOrderService implements OrderService {
 
     @Override
     public Basket saveBasket(OrderDto orderDto) {
-        List<BasketDto> basketDto = orderDto.getBaskets();
-        validateProductsExistence(basketDto);
-        Basket basket = new Basket();
+        var baskets = orderDto.getBaskets();
+        validateProductsExistence(baskets);
+        var basket = new Basket();
         basket.setStatus(OrderStatus.PAID.name());
         basket = basketService.save(basket);
         log.debug("Basket created");
 
         List<BasketProduct> basketProducts = new ArrayList<>();
-        for (BasketDto dto : basketDto) {
+        for (BasketDto dto : baskets) {
             addProducts(basket, basketProducts, dto);
         }
         basket.setBasketProducts(basketProducts);
@@ -54,7 +54,7 @@ public class DefaultOrderService implements OrderService {
 
     @Override
     public Basket saveProduct(BasketDto basketDto) {
-        Basket basket = basketRepository.getOne(basketDto.getBasketId());
+        var basket = basketRepository.getOne(basketDto.getBasketId());
         List<BasketProduct> basketProducts = new ArrayList<>();
         addProducts(basket, basketProducts, basketDto);
         basket.setBasketProducts(basketProducts);

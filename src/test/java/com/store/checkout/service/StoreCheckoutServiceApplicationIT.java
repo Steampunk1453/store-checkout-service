@@ -61,18 +61,14 @@ public class StoreCheckoutServiceApplicationIT {
 
     @Test
     public void whenCreateBasketApiCallReturnsBasket() {
-        HttpHeaders headers = new HttpHeaders();
+        var headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + TEST_JWT_TOKEN);
         HttpEntity<OrderDto> request = new HttpEntity<>(buildOrderRequest(), headers);
-
         final ResponseEntity<Basket> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/baskets", request, Basket.class);
-
-        Basket response = postResponse.getBody();
-
-        Assertions.assertThat(postResponse.getStatusCode()).isEqualByComparingTo(HttpStatus.CREATED);
-
+        var response = postResponse.getBody();
         when(basketRepository.getOne(anyLong())).thenReturn(buildBasket());
 
+        Assertions.assertThat(postResponse.getStatusCode()).isEqualByComparingTo(HttpStatus.CREATED);
         assertThat(response, hasProperty("id", is(1L)));
         assertThat(response, hasProperty("dateCreated", is(LocalDate.now())));
         assertThat(response, hasProperty("status", is("PAID")));
@@ -80,14 +76,13 @@ public class StoreCheckoutServiceApplicationIT {
     }
 
     private OrderDto buildOrderRequest() {
-        OrderDto orderDto = new OrderDto();
         List<BasketDto> basket = new ArrayList<>();
-        BasketDto basketDto = new BasketDto();
+        var orderDto = new OrderDto();
+        var basketDto = new BasketDto();
         basketDto.setProduct(buildProduct());
         basketDto.setQuantity(2);
         basket.add(basketDto);
         orderDto.setBaskets(basket);
-
         return orderDto;
     }
 
@@ -102,7 +97,7 @@ public class StoreCheckoutServiceApplicationIT {
 
     private Basket buildBasket() {
         List<BasketProduct> basketProducts = new ArrayList<>();
-        BasketProduct basketProduct = new BasketProduct();
+        var basketProduct = new BasketProduct();
         basketProduct.setQuantity(2);
         basketProducts.add(basketProduct);
 

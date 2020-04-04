@@ -29,13 +29,13 @@ public class OrderController {
     @PostMapping("/baskets")
     @PreAuthorize("hasRole('ROLE_USER')")
     public synchronized ResponseEntity<Basket> save(@RequestBody OrderDto orderDto) {
-        Basket basket = orderService.saveBasket(orderDto);
+        var basket = orderService.saveBasket(orderDto);
         String uri = ServletUriComponentsBuilder
                 .fromCurrentServletMapping()
                 .path("/baskets")
                 .buildAndExpand(basket.getId())
                 .toString();
-        HttpHeaders headers = new HttpHeaders();
+        var headers = new HttpHeaders();
         headers.add("Location", uri);
 
         return new ResponseEntity<>(basket, headers, HttpStatus.CREATED);
@@ -44,13 +44,13 @@ public class OrderController {
     @PutMapping("/baskets")
     @PreAuthorize("hasRole('ROLE_USER')")
     public synchronized ResponseEntity<Basket> update(@RequestBody BasketDto basketDto) {
-        Basket basket = orderService.saveProduct(basketDto);
+        var basket = orderService.saveProduct(basketDto);
         String uri = ServletUriComponentsBuilder
                 .fromCurrentServletMapping()
                 .path("/baskets")
                 .buildAndExpand(basket.getId())
                 .toString();
-        HttpHeaders headers = new HttpHeaders();
+        var headers = new HttpHeaders();
         headers.add("Location", uri);
 
         return new ResponseEntity<>(basket, headers, HttpStatus.CREATED);

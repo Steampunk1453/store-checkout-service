@@ -15,7 +15,7 @@ public class FinancialDiscounterService implements DiscounterService {
 
     @Override
     public DiscountDto getDiscount(Product product, Integer quantity) {
-        DiscountDto discount = new DiscountDto();
+        var discount = new DiscountDto();
         if(PROMOTION_DISCOUNT_PRODUCT_CODE.equals(product.getCode()) && quantity >= PROMOTION_PRODUCT_DISCOUNT_QUANTITY) {
            return applyDiscount(product, quantity);
         } else {
@@ -25,7 +25,7 @@ public class FinancialDiscounterService implements DiscounterService {
     }
 
     private DiscountDto applyDiscount(Product product, Integer quantity) {
-        DiscountDto discount = new DiscountDto();
+        var discount = new DiscountDto();
         discount.setProductTotalPrice((product.getPrice().subtract(BigDecimal.valueOf(PROMOTION_PRODUCT_DISCOUNT))
         .multiply(BigDecimal.valueOf(quantity))));
         discount.setDiscounted(true);

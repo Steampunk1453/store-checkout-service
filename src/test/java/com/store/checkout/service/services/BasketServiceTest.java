@@ -31,11 +31,10 @@ public class BasketServiceTest {
 
     @Test
     public void whenCreateReturnsBasket() {
-        Basket basket = buildBasketResponse();
-
+        var basket = buildBasketResponse();
         when(basketRepository.save(any(Basket.class))).thenReturn(basket);
 
-        Basket result = basketService.save(buildBasket());
+        var result = basketService.save(buildBasket());
 
         assertThat(result.getId(), is(basket.getId()));
         assertThat(result.getDateCreated(), is(basket.getDateCreated()));
@@ -70,8 +69,8 @@ public class BasketServiceTest {
 
     private Basket buildBasket() {
         List<BasketProduct> basketProducts = new ArrayList<>();
-        BasketProduct basketProduct = new BasketProduct();
-        basketProduct.setQuantity(new Integer(2));
+        var basketProduct = new BasketProduct();
+        basketProduct.setQuantity(2);
         basketProducts.add(basketProduct);
 
         return Basket.builder()
@@ -83,8 +82,8 @@ public class BasketServiceTest {
 
     private Basket buildBasketResponse() {
         List<BasketProduct> basketProducts = new ArrayList<>();
-        BasketProduct basketProduct = new BasketProduct();
-        basketProduct.setQuantity(new Integer(2));
+        var basketProduct = new BasketProduct();
+        basketProduct.setQuantity(2);
         basketProducts.add(basketProduct);
 
         return Basket.builder()
