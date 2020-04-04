@@ -1,6 +1,6 @@
 # store-checkout-service
 
-Back-End service checkout store with Java 11, Spring Boot, JWT, H2 and Swagger 
+Back-End service checkout store with Java 11, Spring Boot, JWT, H2, Aspectj and Swagger  
 
 
 * For testing and view the code in the project I recommend using the IntelliJ IDE (free Community or Ultimate edition)
