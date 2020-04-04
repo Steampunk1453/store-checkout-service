@@ -1,6 +1,5 @@
 package com.store.checkout.service.controllers;
 
-import com.store.checkout.service.domain.User;
 import com.store.checkout.service.security.dtos.AuthorizationRequest;
 import com.store.checkout.service.security.dtos.UserResponse;
 import com.store.checkout.service.services.UserService;

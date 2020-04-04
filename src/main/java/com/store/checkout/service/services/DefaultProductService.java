@@ -1,14 +1,10 @@
 package com.store.checkout.service.services;
 
+import com.store.checkout.service.domain.Product;
 import com.store.checkout.service.exceptions.ResourceNotFoundException;
 import com.store.checkout.service.repositories.ProductRepository;
-import com.store.checkout.service.domain.Product;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @Service
 @Transactional
